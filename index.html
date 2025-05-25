@@ -380,19 +380,34 @@
             background-color: var(--light-color);
         }
 
+        .certifications-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 70px; /* Reduced from 80px to match new button size */
+            overflow: hidden;
+            min-height: 400px;
+        }
+
         .certifications-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             gap: 2rem;
+            width: 100%;
         }
 
         .certification-card {
+            min-width: calc(50% - 1rem);
+            flex: 0 0 calc(50% - 1rem);
             background-color: var(--white);
             padding: 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             border-top: 3px solid var(--accent-color);
-            display: block !important;
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: scale(1);
         }
 
         .certification-card:hover {
@@ -400,12 +415,89 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .certification-card h3 {
-            margin-bottom: 1rem;
+        /* Updated Navigation Buttons with slightly smaller size */
+        .cert-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-accent));
+            color: var(--white);
+            border: none;
+            width: 65px; /* Reduced from 80px */
+            height: 65px; /* Reduced from 80px */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 2.5px solid var(--white); /* Slightly thinner border */
         }
 
-        .certification-card p {
-            margin-bottom: 1rem;
+        .cert-nav-btn.prev-btn {
+            left: 0;
+        }
+
+        .cert-nav-btn.next-btn {
+            right: 0;
+        }
+
+        .cert-nav-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            border-color: var(--accent-color);
+        }
+
+        .cert-nav-btn i {
+            font-size: 1.6rem; /* Reduced from 2rem */
+            font-weight: bold;
+            width: 32px; /* Reduced from 40px */
+            height: 32px; /* Reduced from 40px */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cert-nav-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .cert-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: translateY(-50%);
+            box-shadow: none;
+        }
+
+        /* Remove old animation classes as we're using transform now */
+        .certification-card.sliding-left,
+        .certification-card.sliding-right,
+        .certification-card.entering {
+            animation: none;
+        }
+
+        /* Add gradient overlays for better visibility */
+        .certifications-wrapper::before,
+        .certifications-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .certifications-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--light-color), transparent);
+        }
+
+        .certifications-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--light-color), transparent);
         }
 
         /* Projects Section */
@@ -718,11 +810,12 @@
             }
 
             .certification-card {
-                display: none;
+                min-width: 100%;
+                flex: 0 0 100%;
             }
-
-            .certification-card:first-child {
-                display: block;
+            
+            .certifications-container {
+                max-width: 100%;
             }
         }
 
@@ -863,71 +956,66 @@
         </div>
     </section>
 
-   <!-- Certifications Section -->
-<section id="certifications" class="hidden">
+    <!-- Certifications Section -->
+    <section id="certifications" class="hidden">
         <div class="container">
             <h2>Certifications</h2>
-            <div class="certifications-container">
-                <div class="certification-card">
-                    <h3>Salesforce AI Associate</h3>
-                    <p>Salesforce</p>
-                    <p>Certified in AI fundamentals and applications within the Salesforce ecosystem.</p>
-                    <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=jpfnEzJw9T/qk2RIDoXODVdJCIEKo+JLX/jWyxn1SEyOCaxBaaa0zYGxDq4RxNKt" 
-                       target="_blank" 
-                       class="btn btn-outline" 
-                       style="margin-top: 1rem;">
-                       View Credential
-                    </a>
+            <div class="certifications-wrapper">
+                <button class="cert-nav-btn prev-btn" onclick="rotateCertifications(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="certifications-container">
+                    <div class="certification-card" data-index="0">
+                        <h3>Salesforce AI Associate</h3>
+                        <p>Salesforce</p>
+                        <p>Certified in AI fundamentals and applications within the Salesforce ecosystem.</p>
+                        <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=jpfnEzJw9T/qk2RIDoXODVdJCIEKo+JLX/jWyxn1SEyOCaxBaaa0zYGxDq4RxNKt" 
+                           target="_blank" 
+                           class="btn btn-outline" 
+                           style="margin-top: 1rem;">
+                           View Credential
+                        </a>
+                    </div>
+                    <div class="certification-card" data-index="1">
+                        <h3>Fintech Professional Certificate</h3>
+                        <p>Fintech Council of India</p>
+                        <p>Gained expertise in financial technologies and their applications in modern banking.</p>
+                        <a href="https://drive.google.com/file/d/1p2mqr51ELKub1dNyLlAdVfOdK_CdSXYh/view?usp=drive_link" 
+                           target="_blank" 
+                           class="btn btn-outline" 
+                           style="margin-top: 1rem;">
+                           View Certificate
+                        </a>
+                    </div>
+                    <div class="certification-card" data-index="2">
+                        <h3>Automation Anywhere RPA Professional</h3>
+                        <p>Automation Anywhere University</p>
+                        <p>Certified in Robotic Process Automation essentials and implementation.</p>
+                        <a href="https://www.credential.net/d359effc-2dc5-45f9-a8d0-2666af1724f2#gs.fcxfh8" 
+                           target="_blank" 
+                           class="btn btn-outline" 
+                           style="margin-top: 1rem;">
+                           View Credential
+                        </a>
+                    </div>
+                    <div class="certification-card" data-index="3">
+                        <h3>Oracle Cloud Infrastructure</h3>
+                        <p>Oracle</p>
+                        <p>Certified in Oracle Cloud Infrastructure foundations and services.</p>
+                        <a href="https://www.linkedin.com/posts/peramvenkatabrahmareddy_oracle-cloud-infrastructure-2023-certified-activity-7206888599840067584-80m-?utm_source=share&utm_medium=member_desktop" 
+                           target="_blank" 
+                           class="btn btn-outline" 
+                           style="margin-top: 1rem;">
+                           View Certificate
+                        </a>
+                    </div>
                 </div>
-                
-                <div class="certification-card">
-                    <h3>Fintech Professional Certificate</h3>
-                    <p>Fintech Council of India</p>
-                    <p>Gained expertise in financial technologies and their applications in modern banking.</p>
-                    <a href="https://drive.google.com/file/d/1p2mqr51ELKub1dNyLlAdVfOdK_CdSXYh/view?usp=drive_link" 
-                       target="_blank" 
-                       class="btn btn-outline" 
-                       style="margin-top: 1rem;">
-                       View Certificate
-                    </a>
-                </div>
-                
-                <div class="certification-card">
-                    <h3>Automation Anywhere RPA Professional</h3>
-                    <p>Automation Anywhere University</p>
-                    <p>Certified in Robotic Process Automation essentials and implementation.</p>
-                    <a href="https://www.credential.net/d359effc-2dc5-45f9-a8d0-2666af1724f2#gs.fcxfh8" 
-                       target="_blank" 
-                       class="btn btn-outline" 
-                       style="margin-top: 1rem;">
-                       View Credential
-                    </a>
-                </div>
-                
-                <div class="certification-card">
-                    <h3>Oracle Cloud Infrastructure</h3>
-                    <p>Oracle</p>
-                    <p>Certified in Oracle Cloud Infrastructure foundations and services.</p>
-                    <a href="https://www.linkedin.com/posts/peramvenkatabrahmareddy_oracle-cloud-infrastructure-2023-certified-activity-7206888599840067584-80m-?utm_source=share&utm_medium=member_desktop" 
-                       target="_blank" 
-                       class="btn btn-outline" 
-                       style="margin-top: 1rem;">
-                       View Certificate
-                    </a>
-                </div>
+                <button class="cert-nav-btn next-btn" onclick="rotateCertifications(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-        
-        <!-- Navigation Buttons -->
-        <div class="certification-nav" style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
-            <button id="prevCert" class="btn btn-outline">
-                <i class="fas fa-chevron-left"></i> Previous
-            </button>
-            <button id="nextCert" class="btn btn-outline">
-                Next <i class="fas fa-chevron-right"></i>
-            </button>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Projects Section -->
     <section id="projects" class="hidden">
@@ -1150,7 +1238,7 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="logo">P V <span>BRAHMA</span></div>
+                <div class="logo"><span>P V BRAHMA</span></div>
                 <p>Computer Science Engineer | AI Enthusiast | Problem Solver</p>
                 <div class="footer-social">
                     <a href="https://linkedin.com/in/peramvenkatabrahmareddy" target="_blank"><i class="fab fa-linkedin"></i></a>
@@ -1191,6 +1279,111 @@
     document.getElementById('downloadResume').addEventListener('click', (e) => {
         e.preventDefault();
         window.open('https://drive.google.com/uc?export=download&id=1uzRrj1I3VhYE1lOkASnf3pV6vZFQdSs4', '_blank');
+    });
+
+    let currentCertIndex = 0;
+    const totalCerts = 4;
+    const certsPerView = 2;
+    let isAnimating = false;
+    let autoSlideInterval; // Variable to store the interval
+
+    function startAutoSlide() {
+        // Clear any existing interval first
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+        }
+        
+        // Set new interval for auto-sliding
+        autoSlideInterval = setInterval(() => {
+            if (!isAnimating) {
+                rotateCertifications(1); // Move to next slide
+            }
+        }, 3000); // 3 seconds interval
+    }
+
+    function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = null;
+        }
+    }
+
+    function rotateCertifications(direction) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const container = document.querySelector('.certifications-container');
+        const cardWidth = container.querySelector('.certification-card').offsetWidth + 32;
+        const moveDistance = cardWidth * direction;
+
+        // Calculate new position
+        const currentTransform = new WebKitCSSMatrix(getComputedStyle(container).transform);
+        const currentX = currentTransform.m41;
+        const newX = currentX - moveDistance;
+
+        // Apply smooth transition
+        container.style.transform = `translateX(${newX}px)`;
+
+        // Update current index
+        currentCertIndex = (currentCertIndex + direction + totalCerts) % totalCerts;
+
+        // Reset position after animation
+        setTimeout(() => {
+            if (Math.abs(newX) >= cardWidth * (totalCerts / 2)) {
+                container.style.transition = 'none';
+                container.style.transform = 'translateX(0)';
+                // Force reflow
+                container.offsetHeight;
+                container.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            }
+            isAnimating = false;
+        }, 800);
+    }
+
+    // Initialize slider with auto-slide
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.certifications-container');
+        const cards = document.querySelectorAll('.certification-card');
+        
+        // Clone first two cards and append to end for infinite effect
+        for (let i = 0; i < certsPerView; i++) {
+            const clone = cards[i].cloneNode(true);
+            container.appendChild(clone);
+        }
+
+        // Add hover effects to buttons
+        const navButtons = document.querySelectorAll('.cert-nav-btn');
+        navButtons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                if (!btn.disabled) {
+                    btn.style.transform = 'translateY(-50%) scale(1.1)';
+                    btn.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+                }
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                if (!btn.disabled) {
+                    btn.style.transform = 'translateY(-50%) scale(1)';
+                    btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+                }
+            });
+
+            // Pause auto-slide when hovering over buttons
+            btn.addEventListener('mouseenter', stopAutoSlide);
+            btn.addEventListener('mouseleave', startAutoSlide);
+        });
+
+        // Pause auto-slide when hovering over the container
+        container.addEventListener('mouseenter', stopAutoSlide);
+        container.addEventListener('mouseleave', startAutoSlide);
+
+        // Start auto-sliding
+        startAutoSlide();
+    });
+
+    // Clean up interval when leaving the page
+    window.addEventListener('beforeunload', () => {
+        stopAutoSlide();
     });
 </script>
 </body>
