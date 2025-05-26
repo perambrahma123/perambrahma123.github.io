@@ -20,12 +20,35 @@
             --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
             --border-radius: 8px;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --section-bg: #f8f9fa;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --primary-color: #4ecdc4;
+            --secondary-color: #2a9d8f;
+            --accent-color: #ffd166;
+            --dark-accent: #f4a261;
+            --light-color: #2d3436;
+            --dark-color: #f8f9fa;
+            --text-color: #e9ecef;
+            --text-light: #adb5bd;
+            --white: #2d3436;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --bg-color: #1a1a1a;
+            --card-bg: #2d3436;
+            --header-bg: rgba(45, 52, 54, 0.95);
+            --section-bg: #2d3436;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         html {
@@ -36,7 +59,7 @@
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--white);
+            background-color: var(--bg-color);
             overflow-x: hidden;
         }
 
@@ -149,7 +172,7 @@
 
         /* Header & Navigation */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: var(--header-bg);
             box-shadow: var(--shadow);
             position: fixed;
             top: 0;
@@ -158,6 +181,9 @@
             z-index: 1000;
             transition: var(--transition);
             backdrop-filter: blur(5px);
+            height: 80px;
+            display: flex;
+            align-items: center;
         }
 
         .header-scrolled {
@@ -170,13 +196,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--secondary-color);
+            color: var(--text-color);
         }
 
         .logo span {
@@ -186,6 +214,9 @@
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
+            margin: 0;
+            padding: 0;
         }
 
         .nav-links li {
@@ -194,7 +225,7 @@
         }
 
         .nav-links a {
-            color: var(--secondary-color);
+            color: var(--text-color);
             font-weight: 500;
             transition: var(--transition);
         }
@@ -305,7 +336,7 @@
 
         /* About Section */
         #about {
-            background-color: var(--light-color);
+            background-color: var(--section-bg);
         }
 
         .about-content {
@@ -328,7 +359,7 @@
         .about-info {
             flex: 1;
             min-width: 300px;
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
@@ -348,7 +379,7 @@
 
         /* Education Section */
         .education-item {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 2rem;
             margin-bottom: 2rem;
             border-radius: var(--border-radius);
@@ -377,7 +408,7 @@
 
         /* Certifications Section */
         #certifications {
-            background-color: var(--light-color);
+            background-color: var(--section-bg);
         }
 
         .certifications-wrapper {
@@ -400,7 +431,7 @@
         .certification-card {
             min-width: calc(50% - 1rem);
             flex: 0 0 calc(50% - 1rem);
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
@@ -508,7 +539,7 @@
         }
 
         .project-card {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -566,7 +597,7 @@
 
         /* Achievements Section */
         #achievements {
-            background-color: var(--light-color);
+            background-color: var(--section-bg);
         }
 
         .achievements-container {
@@ -576,7 +607,7 @@
         }
 
         .achievement-card {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
@@ -605,7 +636,7 @@
         }
 
         .skill-category {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
@@ -642,7 +673,7 @@
 
         /* Contact Section */
         #contact {
-            background-color: var(--light-color);
+            background-color: var(--section-bg);
         }
 
         .contact-container {
@@ -665,7 +696,7 @@
         }
 
         .contact-form {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
@@ -817,6 +848,13 @@
             .certifications-container {
                 max-width: 100%;
             }
+
+            .theme-toggle {
+                margin: 1rem 0;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -836,6 +874,53 @@
                 font-size: 1.8rem;
             }
         }
+
+        /* Theme Toggle Button - Updated for nav bar */
+        .theme-toggle {
+            position: relative; /* Changed from fixed to relative */
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            margin-left: 2rem; /* Match other nav items spacing */
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -854,6 +939,11 @@
                     <li><a href="#achievements">Achievements</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
                 </ul>
                 <div class="hamburger">
                     <i class="fas fa-bars"></i>
@@ -1250,141 +1340,212 @@
         </div>
     </footer>
 
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
     <!-- JavaScript -->
-   <script>
-    // Simple mobile navigation
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    // Simple smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
+    <script>
+        // Simple mobile navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
         });
-    });
 
-    // Simple resume download
-    document.getElementById('downloadResume').addEventListener('click', (e) => {
-        e.preventDefault();
-        window.open('https://drive.google.com/uc?export=download&id=1uzRrj1I3VhYE1lOkASnf3pV6vZFQdSs4', '_blank');
-    });
-
-    let currentCertIndex = 0;
-    const totalCerts = 4;
-    const certsPerView = 2;
-    let isAnimating = false;
-    let autoSlideInterval; // Variable to store the interval
-
-    function startAutoSlide() {
-        // Clear any existing interval first
-        if (autoSlideInterval) {
-            clearInterval(autoSlideInterval);
-        }
-        
-        // Set new interval for auto-sliding
-        autoSlideInterval = setInterval(() => {
-            if (!isAnimating) {
-                rotateCertifications(1); // Move to next slide
-            }
-        }, 3000); // 3 seconds interval
-    }
-
-    function stopAutoSlide() {
-        if (autoSlideInterval) {
-            clearInterval(autoSlideInterval);
-            autoSlideInterval = null;
-        }
-    }
-
-    function rotateCertifications(direction) {
-        if (isAnimating) return;
-        isAnimating = true;
-
-        const container = document.querySelector('.certifications-container');
-        const cardWidth = container.querySelector('.certification-card').offsetWidth + 32;
-        const moveDistance = cardWidth * direction;
-
-        // Calculate new position
-        const currentTransform = new WebKitCSSMatrix(getComputedStyle(container).transform);
-        const currentX = currentTransform.m41;
-        const newX = currentX - moveDistance;
-
-        // Apply smooth transition
-        container.style.transform = `translateX(${newX}px)`;
-
-        // Update current index
-        currentCertIndex = (currentCertIndex + direction + totalCerts) % totalCerts;
-
-        // Reset position after animation
-        setTimeout(() => {
-            if (Math.abs(newX) >= cardWidth * (totalCerts / 2)) {
-                container.style.transition = 'none';
-                container.style.transform = 'translateX(0)';
-                // Force reflow
-                container.offsetHeight;
-                container.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            }
-            isAnimating = false;
-        }, 800);
-    }
-
-    // Initialize slider with auto-slide
-    document.addEventListener('DOMContentLoaded', () => {
-        const container = document.querySelector('.certifications-container');
-        const cards = document.querySelectorAll('.certification-card');
-        
-        // Clone first two cards and append to end for infinite effect
-        for (let i = 0; i < certsPerView; i++) {
-            const clone = cards[i].cloneNode(true);
-            container.appendChild(clone);
-        }
-
-        // Add hover effects to buttons
-        const navButtons = document.querySelectorAll('.cert-nav-btn');
-        navButtons.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                if (!btn.disabled) {
-                    btn.style.transform = 'translateY(-50%) scale(1.1)';
-                    btn.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+        // Simple smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 }
             });
+        });
+
+        // Toast Notification Function
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            if (!toast) {
+                console.error('Toast element not found');
+                return;
+            }
             
-            btn.addEventListener('mouseleave', () => {
-                if (!btn.disabled) {
-                    btn.style.transform = 'translateY(-50%) scale(1)';
-                    btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
-                }
-            });
+            // Clear any existing timeout
+            if (toast.timeoutId) {
+                clearTimeout(toast.timeoutId);
+            }
+            
+            // Set the message and show the toast
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            // Hide the toast after 3 seconds
+            toast.timeoutId = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
-            // Pause auto-slide when hovering over buttons
-            btn.addEventListener('mouseenter', stopAutoSlide);
-            btn.addEventListener('mouseleave', startAutoSlide);
+        // Resume Download
+        document.getElementById('downloadResume').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Show initial toast
+            showToast('Preparing resume for download...');
+            
+            // Wait 2 seconds then start download
+            setTimeout(() => {
+                try {
+                    window.open('https://drive.google.com/uc?export=download&id=1BAIUjxLk3cM_KC3cdVjr2x3o5UBn0vJO', '_blank');
+                    showToast('Download started!');
+                } catch (error) {
+                    showToast('Error starting download. Please try again.');
+                    console.error('Download error:', error);
+                }
+            }, 2000);
         });
 
-        // Pause auto-slide when hovering over the container
-        container.addEventListener('mouseenter', stopAutoSlide);
-        container.addEventListener('mouseleave', startAutoSlide);
+        let currentCertIndex = 0;
+        const totalCerts = 4;
+        const certsPerView = 2;
+        let isAnimating = false;
+        let autoSlideInterval; // Variable to store the interval
 
-        // Start auto-sliding
-        startAutoSlide();
-    });
+        function startAutoSlide() {
+            // Clear any existing interval first
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+            }
+            
+            // Set new interval for auto-sliding
+            autoSlideInterval = setInterval(() => {
+                if (!isAnimating) {
+                    rotateCertifications(1); // Move to next slide
+                }
+            }, 3000); // 3 seconds interval
+        }
 
-    // Clean up interval when leaving the page
-    window.addEventListener('beforeunload', () => {
-        stopAutoSlide();
-    });
-</script>
+        function stopAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = null;
+            }
+        }
+
+        function rotateCertifications(direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const container = document.querySelector('.certifications-container');
+            const cardWidth = container.querySelector('.certification-card').offsetWidth + 32;
+            const moveDistance = cardWidth * direction;
+
+            // Calculate new position
+            const currentTransform = new WebKitCSSMatrix(getComputedStyle(container).transform);
+            const currentX = currentTransform.m41;
+            const newX = currentX - moveDistance;
+
+            // Apply smooth transition
+            container.style.transform = `translateX(${newX}px)`;
+
+            // Update current index
+            currentCertIndex = (currentCertIndex + direction + totalCerts) % totalCerts;
+
+            // Reset position after animation
+            setTimeout(() => {
+                if (Math.abs(newX) >= cardWidth * (totalCerts / 2)) {
+                    container.style.transition = 'none';
+                    container.style.transform = 'translateX(0)';
+                    // Force reflow
+                    container.offsetHeight;
+                    container.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                }
+                isAnimating = false;
+            }, 800);
+        }
+
+        // Initialize slider with auto-slide
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.certifications-container');
+            const cards = document.querySelectorAll('.certification-card');
+            
+            // Clone first two cards and append to end for infinite effect
+            for (let i = 0; i < certsPerView; i++) {
+                const clone = cards[i].cloneNode(true);
+                container.appendChild(clone);
+            }
+
+            // Add hover effects to buttons
+            const navButtons = document.querySelectorAll('.cert-nav-btn');
+            navButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', () => {
+                    if (!btn.disabled) {
+                        btn.style.transform = 'translateY(-50%) scale(1.1)';
+                        btn.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+                    }
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    if (!btn.disabled) {
+                        btn.style.transform = 'translateY(-50%) scale(1)';
+                        btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+                    }
+                });
+
+                // Pause auto-slide when hovering over buttons
+                btn.addEventListener('mouseenter', stopAutoSlide);
+                btn.addEventListener('mouseleave', startAutoSlide);
+            });
+
+            // Pause auto-slide when hovering over the container
+            container.addEventListener('mouseenter', stopAutoSlide);
+            container.addEventListener('mouseleave', startAutoSlide);
+
+            // Start auto-sliding
+            startAutoSlide();
+        });
+
+        // Clean up interval when leaving the page
+        window.addEventListener('beforeunload', () => {
+            stopAutoSlide();
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        // Theme toggle click handler
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        // Update theme icon
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Add smooth transition when changing theme
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remove transition class after initial load
+            setTimeout(() => {
+                document.body.classList.add('theme-transition');
+            }, 100);
+        });
+    </script>
 </body>
 </html>
