@@ -1292,6 +1292,43 @@
             align-items: center;
             gap: 0.3rem;
         }
+
+        /* Back to Top Button styles */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-2px);
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -1767,6 +1804,11 @@
     <!-- Add Scroll Progress Bar -->
     <div class="scroll-progress"></div>
 
+    <!-- Add the Back to Top button after the footer -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- JavaScript -->
    <script>
         // Simple mobile navigation
@@ -2019,17 +2061,20 @@
         });
     });
 
-        // Back to Top Button
-        const backToTop = document.getElementById('backToTop');
+        // Back to Top Button functionality
+        const backToTopButton = document.getElementById('backToTop');
+
+        // Show/hide button based on scroll position
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
-                backToTop.classList.add('show');
+                backToTopButton.classList.add('show');
             } else {
-                backToTop.classList.remove('show');
+                backToTopButton.classList.remove('show');
             }
         });
 
-        backToTop.addEventListener('click', () => {
+        // Smooth scroll to top when clicked
+        backToTopButton.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
