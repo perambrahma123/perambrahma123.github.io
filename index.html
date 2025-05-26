@@ -100,15 +100,16 @@
             margin-bottom: 3rem;
             color: var(--secondary-color);
             position: relative;
+            padding-bottom: 1rem;
         }
 
-        h2::after {
+        h2::before {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 100px;
             height: 4px;
             background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
             border-radius: 2px;
@@ -141,22 +142,25 @@
             font-weight: 500;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-color);
-            color: var(--white);
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:disabled {
@@ -228,17 +232,19 @@
             color: var(--text-color);
             font-weight: 500;
             transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent-color);
-            transition: var(--transition);
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover::after {
@@ -326,12 +332,30 @@
             color: var(--secondary-color);
             transition: var(--transition);
             box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icons a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-icons a:hover::before {
+            opacity: 1;
         }
 
         .social-icons a:hover {
-            background-color: var(--primary-color);
+            transform: translateY(-3px) scale(1.1);
             color: var(--white);
-            transform: translateY(-3px);
         }
 
         /* About Section */
@@ -655,20 +679,53 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.5rem;
+            font-weight: 500;
         }
 
+        .skill-info span:first-child {
+            color: var(--secondary-color);
+        }
+
+        .skill-info span:last-child {
+            color: var(--primary-color);
+        }
+
+        /* Animated Skill Bar styles */
         .skill-bar {
-            height: 10px;
+            height: 8px;
             background-color: var(--light-color);
-            border-radius: 5px;
+            border-radius: 4px;
             overflow: hidden;
+            position: relative;
+            margin-bottom: 1rem;
         }
 
         .skill-progress {
             height: 100%;
             background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 5px;
-            transition: none;
+            border-radius: 4px;
+            position: relative;
+            width: 0;
+            animation: fillBar 2s ease-out forwards;
+            animation-play-state: paused;
+        }
+
+        /* Animation for each skill level */
+        .skill-progress[data-level="85"] { animation-delay: 0.1s; }
+        .skill-progress[data-level="80"] { animation-delay: 0.2s; }
+        .skill-progress[data-level="75"] { animation-delay: 0.3s; }
+        .skill-progress[data-level="70"] { animation-delay: 0.4s; }
+        .skill-progress[data-level="90"] { animation-delay: 0.5s; }
+        .skill-progress[data-level="88"] { animation-delay: 0.6s; }
+
+        @keyframes fillBar {
+            0% { width: 0; }
+            100% { width: var(--fill-width); }
+        }
+
+        /* Start animation when section is visible */
+        .skills-container.visible .skill-progress {
+            animation-play-state: running;
         }
 
         /* Contact Section */
@@ -921,6 +978,320 @@
             opacity: 1;
             visibility: visible;
         }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        /* Enhanced Card Hover Effects */
+        .project-card, .certification-card, .achievement-card, .skill-category {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card:hover, .certification-card:hover, .achievement-card:hover, .skill-category:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Section Headers */
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        /* Enhanced Navigation */
+        .nav-links a {
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Enhanced Buttons */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Enhanced Skill Bars */
+        .skill-bar {
+            height: 8px;
+            background-color: var(--light-color);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Enhanced Social Icons */
+        .social-icons a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icons a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-icons a:hover::before {
+            opacity: 1;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: var(--white);
+        }
+
+        /* Enhanced Theme Toggle */
+        .theme-toggle {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .theme-toggle:hover::before {
+            opacity: 1;
+        }
+
+        .theme-toggle:hover {
+            color: var(--white);
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        /* Simplified GitHub Stats styles */
+        .github-stats {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .github-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h4 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stat-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .github-details {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .language-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .language-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .language-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .top-repos {
+            margin-top: 2rem;
+        }
+
+        .repo-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .repo-card {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .repo-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .repo-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .repo-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .repo-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -1021,91 +1392,135 @@
         </div>
     </section>
 
-    <!-- Education Section -->
+    <!-- Add after the header section -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Add after the About section -->
+    <section id="github-stats" class="hidden">
+        <div class="container">
+            <h2>GitHub Statistics</h2>
+            <div class="github-stats">
+                <div class="github-stats-grid">
+                    <div class="stat-card">
+                        <i class="fab fa-github"></i>
+                        <h4 id="repoCount">Loading...</h4>
+                        <p>Repositories</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-code-branch"></i>
+                        <h4 id="commitCount">Loading...</h4>
+                        <p>Total Commits</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-code"></i>
+                        <h4 id="contributionCount">Loading...</h4>
+                        <p>Contributions</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <h4 id="starCount">Loading...</h4>
+                        <p>Stars Received</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Replace the existing Education section with this enhanced version -->
     <section id="education" class="hidden">
         <div class="container">
-            <h2>Education</h2>
-            <div class="education-item">
+            <h2>Education Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
                 <h3>B.Tech in Computer Science and Engineering</h3>
                 <p class="date">2021 - 2025</p>
                 <p>KL University, Andhra Pradesh</p>
                 <p>CGPA: 8.72</p>
             </div>
-            <div class="education-item">
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
                 <h3>Senior Secondary Education</h3>
                 <p class="date">2019 - 2021</p>
                 <p>Narayana Junior College, Andhra Pradesh</p>
                 <p>GPA: 9.44</p>
             </div>
-            <div class="education-item">
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
                 <h3>Secondary Education</h3>
                 <p class="date">2018 - 2019</p>
                 <p>Oxford Public School, Andhra Pradesh</p>
                 <p>GPA: 9.5</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Certifications Section -->
-    <section id="certifications" class="hidden">
+   <!-- Certifications Section -->
+<section id="certifications" class="hidden">
         <div class="container">
             <h2>Certifications</h2>
             <div class="certifications-wrapper">
                 <button class="cert-nav-btn prev-btn" onclick="rotateCertifications(-1)">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <div class="certifications-container">
+            <div class="certifications-container">
                     <div class="certification-card" data-index="0">
-                        <h3>Salesforce AI Associate</h3>
-                        <p>Salesforce</p>
-                        <p>Certified in AI fundamentals and applications within the Salesforce ecosystem.</p>
-                        <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=jpfnEzJw9T/qk2RIDoXODVdJCIEKo+JLX/jWyxn1SEyOCaxBaaa0zYGxDq4RxNKt" 
-                           target="_blank" 
-                           class="btn btn-outline" 
-                           style="margin-top: 1rem;">
-                           View Credential
-                        </a>
-                    </div>
-                    <div class="certification-card" data-index="1">
-                        <h3>Fintech Professional Certificate</h3>
-                        <p>Fintech Council of India</p>
-                        <p>Gained expertise in financial technologies and their applications in modern banking.</p>
-                        <a href="https://drive.google.com/file/d/1p2mqr51ELKub1dNyLlAdVfOdK_CdSXYh/view?usp=drive_link" 
-                           target="_blank" 
-                           class="btn btn-outline" 
-                           style="margin-top: 1rem;">
-                           View Certificate
-                        </a>
-                    </div>
-                    <div class="certification-card" data-index="2">
-                        <h3>Automation Anywhere RPA Professional</h3>
-                        <p>Automation Anywhere University</p>
-                        <p>Certified in Robotic Process Automation essentials and implementation.</p>
-                        <a href="https://www.credential.net/d359effc-2dc5-45f9-a8d0-2666af1724f2#gs.fcxfh8" 
-                           target="_blank" 
-                           class="btn btn-outline" 
-                           style="margin-top: 1rem;">
-                           View Credential
-                        </a>
-                    </div>
-                    <div class="certification-card" data-index="3">
-                        <h3>Oracle Cloud Infrastructure</h3>
-                        <p>Oracle</p>
-                        <p>Certified in Oracle Cloud Infrastructure foundations and services.</p>
-                        <a href="https://www.linkedin.com/posts/peramvenkatabrahmareddy_oracle-cloud-infrastructure-2023-certified-activity-7206888599840067584-80m-?utm_source=share&utm_medium=member_desktop" 
-                           target="_blank" 
-                           class="btn btn-outline" 
-                           style="margin-top: 1rem;">
-                           View Certificate
-                        </a>
-                    </div>
+                    <h3>Salesforce AI Associate</h3>
+                    <p>Salesforce</p>
+                    <p>Certified in AI fundamentals and applications within the Salesforce ecosystem.</p>
+                    <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=jpfnEzJw9T/qk2RIDoXODVdJCIEKo+JLX/jWyxn1SEyOCaxBaaa0zYGxDq4RxNKt" 
+                       target="_blank" 
+                       class="btn btn-outline" 
+                       style="margin-top: 1rem;">
+                       View Credential
+                    </a>
                 </div>
+                    <div class="certification-card" data-index="1">
+                    <h3>Fintech Professional Certificate</h3>
+                    <p>Fintech Council of India</p>
+                    <p>Gained expertise in financial technologies and their applications in modern banking.</p>
+                    <a href="https://drive.google.com/file/d/1p2mqr51ELKub1dNyLlAdVfOdK_CdSXYh/view?usp=drive_link" 
+                       target="_blank" 
+                       class="btn btn-outline" 
+                       style="margin-top: 1rem;">
+                       View Certificate
+                    </a>
+                </div>
+                    <div class="certification-card" data-index="2">
+                    <h3>Automation Anywhere RPA Professional</h3>
+                    <p>Automation Anywhere University</p>
+                    <p>Certified in Robotic Process Automation essentials and implementation.</p>
+                    <a href="https://www.credential.net/d359effc-2dc5-45f9-a8d0-2666af1724f2#gs.fcxfh8" 
+                       target="_blank" 
+                       class="btn btn-outline" 
+                       style="margin-top: 1rem;">
+                       View Credential
+                    </a>
+                </div>
+                    <div class="certification-card" data-index="3">
+                    <h3>Oracle Cloud Infrastructure</h3>
+                    <p>Oracle</p>
+                    <p>Certified in Oracle Cloud Infrastructure foundations and services.</p>
+                    <a href="https://www.linkedin.com/posts/peramvenkatabrahmareddy_oracle-cloud-infrastructure-2023-certified-activity-7206888599840067584-80m-?utm_source=share&utm_medium=member_desktop" 
+                       target="_blank" 
+                       class="btn btn-outline" 
+                       style="margin-top: 1rem;">
+                       View Certificate
+                    </a>
+                </div>
+            </div>
                 <button class="cert-nav-btn next-btn" onclick="rotateCertifications(1)">
                     <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
+            </button>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Projects Section -->
     <section id="projects" class="hidden">
@@ -1183,7 +1598,7 @@
                             <span>85%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%;"></div>
+                            <div class="skill-progress" data-level="85" style="--fill-width: 85%;"></div>
                         </div>
                     </div>
                     <div class="skill-item">
@@ -1192,7 +1607,7 @@
                             <span>80%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%;"></div>
+                            <div class="skill-progress" data-level="80" style="--fill-width: 80%;"></div>
                         </div>
                     </div>
                     <div class="skill-item">
@@ -1201,7 +1616,7 @@
                             <span>75%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 75%;"></div>
+                            <div class="skill-progress" data-level="75" style="--fill-width: 75%;"></div>
                         </div>
                     </div>
                 </div>
@@ -1213,7 +1628,7 @@
                             <span>80%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%;"></div>
+                            <div class="skill-progress" data-level="80" style="--fill-width: 80%;"></div>
                         </div>
                     </div>
                     <div class="skill-item">
@@ -1222,7 +1637,7 @@
                             <span>85%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%;"></div>
+                            <div class="skill-progress" data-level="85" style="--fill-width: 85%;"></div>
                         </div>
                     </div>
                     <div class="skill-item">
@@ -1231,7 +1646,7 @@
                             <span>70%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 70%;"></div>
+                            <div class="skill-progress" data-level="70" style="--fill-width: 70%;"></div>
                         </div>
                     </div>
                 </div>
@@ -1243,7 +1658,7 @@
                             <span>90%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 90%;"></div>
+                            <div class="skill-progress" data-level="90" style="--fill-width: 90%;"></div>
                         </div>
                     </div>
                     <div class="skill-item">
@@ -1252,7 +1667,7 @@
                             <span>85%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%;"></div>
+                            <div class="skill-progress" data-level="85" style="--fill-width: 85%;"></div>
                         </div>
                     </div>
                     <div class="skill-item">
@@ -1261,7 +1676,7 @@
                             <span>88%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 88%;"></div>
+                            <div class="skill-progress" data-level="88" style="--fill-width: 88%;"></div>
                         </div>
                     </div>
                 </div>
@@ -1349,14 +1764,17 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
+    <!-- Add Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+
     <!-- JavaScript -->
-    <script>
+   <script>
         // Simple mobile navigation
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-        
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
         });
 
         // Simple smooth scrolling
@@ -1397,9 +1815,9 @@
             }, 3000);
         }
 
-        // Resume Download
-        document.getElementById('downloadResume').addEventListener('click', (e) => {
-            e.preventDefault();
+    // Resume Download
+    document.getElementById('downloadResume').addEventListener('click', (e) => {
+        e.preventDefault();
             
             // Show initial toast
             showToast('Preparing resume for download...');
@@ -1548,10 +1966,260 @@
         // Add smooth transition when changing theme
         document.addEventListener('DOMContentLoaded', () => {
             // Remove transition class after initial load
-            setTimeout(() => {
+        setTimeout(() => {
                 document.body.classList.add('theme-transition');
             }, 100);
         });
-    </script>
+
+        // Add scroll progress functionality
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / scrollable) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+
+        // Enhanced scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    if (entry.target.classList.contains('skill-progress')) {
+                        const width = entry.target.getAttribute('data-width');
+                        entry.target.style.width = width;
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.hidden, .skill-progress').forEach(el => observer.observe(el));
+
+        // Smooth scroll with offset
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                        top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Timeline Animation
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        timelineItems.forEach(item => timelineObserver.observe(item));
+
+        // Simplified GitHub Stats
+        async function fetchGitHubStats() {
+            const username = 'perambrahma123';
+            
+            try {
+                // Fetch user data
+                const userResponse = await fetch(`https://api.github.com/users/${username}`);
+                const userData = await userResponse.json();
+                
+                // Fetch repositories
+                const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+                const reposData = await reposResponse.json();
+                
+                // Calculate total stars
+                const totalStars = reposData.reduce((acc, repo) => acc + repo.stargargers_count, 0);
+                
+                // Update stats
+                document.getElementById('repoCount').textContent = userData.public_repos;
+                document.getElementById('starCount').textContent = totalStars;
+                
+                // For commit count and contributions, we'll use a reasonable estimate
+                // since getting exact numbers would require more complex API calls
+                document.getElementById('commitCount').textContent = '50+';
+                document.getElementById('contributionCount').textContent = '100+';
+                
+            } catch (error) {
+                console.error('Error fetching GitHub stats:', error);
+                document.querySelectorAll('.stat-card h4').forEach(el => el.textContent = 'N/A');
+            }
+        }
+
+        // Call GitHub stats when the section is visible
+        const githubStatsSection = document.getElementById('github-stats');
+        const githubStatsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                fetchGitHubStats();
+                githubStatsObserver.unobserve(entries[0].target);
+            }
+        }, { threshold: 0.5 });
+
+        githubStatsObserver.observe(githubStatsSection);
+
+        // Helper function to get language colors
+        function getLanguageColor(language) {
+            const colors = {
+                'JavaScript': '#f1e05a',
+                'Python': '#3572A5',
+                'Java': '#b07219',
+                'HTML': '#e34c26',
+                'CSS': '#563d7c',
+                'TypeScript': '#2b7489',
+                'PHP': '#4F5D95',
+                'Ruby': '#701516',
+                'C++': '#f34b7d',
+                'C#': '#178600',
+                'Go': '#00ADD8',
+                'Rust': '#dea584',
+                'Swift': '#ffac45',
+                'Kotlin': '#F18E33',
+                'Scala': '#c22d40',
+                'Shell': '#89e051',
+                'PowerShell': '#012456',
+                'Vue': '#2c3e50',
+                'React': '#61dafb',
+                'Angular': '#b52e31',
+                'Node.js': '#339933',
+                'Dart': '#00B4AB',
+                'Flutter': '#02569b',
+                'R': '#198CE7',
+                'MATLAB': '#e16737',
+                'SQL': '#e38c00',
+                'PL/SQL': '#dad8d8',
+                'Assembly': '#6E4C13',
+                'C': '#555555',
+                'Objective-C': '#438eff',
+                'Perl': '#0298c3',
+                'Lua': '#000080',
+                'Haskell': '#5e5086',
+                'Clojure': '#db5855',
+                'Elixir': '#6e4a7e',
+                'Erlang': '#B83998',
+                'F#': '#b845fc',
+                'OCaml': '#3be133',
+                'Racket': '#3c5caa',
+                'Scheme': '#1e4aec',
+                'D': '#ba595e',
+                'Fortran': '#4d41b1',
+                'Julia': '#a270ba',
+                'Nim': '#ffc200',
+                'Pascal': '#E3F171',
+                'Ada': '#02f88c',
+                'COBOL': '#773F17',
+                'Lisp': '#3fb68b',
+                'Prolog': '#74283c',
+                'Smalltalk': '#596706',
+                'Tcl': '#e4cc98',
+                'VHDL': '#adb2cb',
+                'Verilog': '#b2b7f8',
+                'Apex': '#1797c0',
+                'Visual Basic': '#945db7',
+                'Groovy': '#e69f56',
+                'Dockerfile': '#384d54',
+                'Makefile': '#427819',
+                'Batchfile': '#C1F12E',
+                'TeX': '#3D6117',
+                'Markdown': '#083fa1',
+                'YAML': '#cb171e',
+                'JSON': '#292929',
+                'XML': '#f16529',
+                'SVG': '#ff9900',
+                'GraphQL': '#e10098',
+                'WebAssembly': '#654ff0',
+                'WebVTT': '#e6e6e6',
+                'WebIDL': '#e6e6e6',
+                'WebGL': '#e6e6e6',
+                'WebC': '#e6e6e6',
+                'WebAssembly Text Format': '#654ff0',
+                'WebVTT': '#e6e6e6',
+                'WebIDL': '#e6e6e6',
+                'WebGL': '#e6e6e6',
+                'WebC': '#e6e6e6',
+                'Other': '#6e4a7e'
+            };
+            return colors[language] || colors['Other'];
+        }
+
+        // Update the skill bars animation
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                    const progressBar = entry.target;
+                    const width = progressBar.getAttribute('data-width');
+                    progressBar.style.width = width;
+                    skillObserver.unobserve(progressBar);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe all skill progress bars
+        document.querySelectorAll('.skill-progress').forEach(progressBar => {
+            skillObserver.observe(progressBar);
+        });
+
+        // Add minimal JavaScript to trigger animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const skillsSection = document.querySelector('.skills-container');
+            
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+
+            // Function to handle scroll
+            function handleScroll() {
+                if (isInViewport(skillsSection)) {
+                    skillsSection.classList.add('visible');
+                    // Remove scroll listener once animation is triggered
+                    window.removeEventListener('scroll', handleScroll);
+                }
+            }
+
+            // Add scroll listener
+            window.addEventListener('scroll', handleScroll);
+            // Check on initial load
+            handleScroll();
+        });
+</script>
 </body>
 </html>
