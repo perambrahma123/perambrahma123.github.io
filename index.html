@@ -1329,6 +1329,122 @@
         .back-to-top:active {
             transform: translateY(-2px);
         }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 2rem 0;
+            position: relative;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-content {
+            position: relative;
+            width: calc(50% - 40px);
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-left: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 0;
+            margin-right: auto;
+            border-left: none;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            left: -52px;
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 4px var(--primary-color);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: auto;
+            right: -52px;
+        }
+
+        .timeline-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content .date {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .timeline-content p {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        /* Responsive Timeline */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+                border-left: 4px solid var(--primary-color) !important;
+                border-right: none !important;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 80px !important;
+            }
+
+            .timeline-content::before {
+                left: -52px !important;
+                right: auto !important;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: -52px !important;
+                right: auto !important;
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -1472,26 +1588,26 @@
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                <h3>B.Tech in Computer Science and Engineering</h3>
-                <p class="date">2021 - 2025</p>
-                <p>KL University, Andhra Pradesh</p>
-                <p>CGPA: 8.72</p>
-            </div>
+                        <h3>B.Tech in Computer Science and Engineering</h3>
+                        <span class="date">2021 - 2025</span>
+                        <p>KL University, Andhra Pradesh</p>
+                        <p>CGPA: 8.72</p>
+                    </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                <h3>Senior Secondary Education</h3>
-                <p class="date">2019 - 2021</p>
-                <p>Narayana Junior College, Andhra Pradesh</p>
-                <p>GPA: 9.44</p>
-            </div>
+                        <h3>Senior Secondary Education</h3>
+                        <span class="date">2019 - 2021</span>
+                        <p>Narayana Junior College, Andhra Pradesh</p>
+                        <p>GPA: 9.44</p>
+                    </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                <h3>Secondary Education</h3>
-                <p class="date">2018 - 2019</p>
-                <p>Oxford Public School, Andhra Pradesh</p>
-                <p>GPA: 9.5</p>
+                        <h3>Secondary Education</h3>
+                        <span class="date">2018 - 2019</span>
+                        <p>Oxford Public School, Andhra Pradesh</p>
+                        <p>GPA: 9.5</p>
                     </div>
                 </div>
             </div>
