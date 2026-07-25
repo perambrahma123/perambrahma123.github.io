@@ -1,0 +1,28 @@
+:root {
+    --primary-color: #2a9d8f;
+    --secondary-color: #264653;
+    --accent-color: #e9c46a;
+    --dark-accent: #f4a261;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --text-color: #495057;
+    --bg-color: #ffffff;
+    --card-bg: #ffffff;
+    --header-bg: rgba(255, 255, 255, 0.95);
+    --section-bg: #f8f9fa;
+    --transition: all 0.3s ease;
+    --border-radius: 8px;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --primary-color: #4ecdc4;
+    --bg-color: #1a1a1a;
+    --card-bg: #2d3436;
+    --text-color: #e9ecef;
+    --header-bg: rgba(45, 52, 54, 0.95);
+    --section-bg: #2d3436;
+}
+
+/* Add the rest of your CSS from the original file here... */
+/* Global Styles, Hero, About, Timeline, etc. */
